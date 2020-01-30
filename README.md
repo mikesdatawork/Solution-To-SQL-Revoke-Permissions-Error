@@ -43,6 +43,7 @@ where
 order by
        'account name' asc
 ```
+
 ![See Account Info]( https://mikesdatawork.files.wordpress.com/2015/02/image006.jpg "See Account Info")
  
 Once you can see the explicit permissions that were granted, all you need to do is run the following statement to remove (aka REVOKE) the permissions from the account so you can drop the login.
@@ -52,7 +53,7 @@ Lets drop those CONNECT permissions from the account.
 
 ## SQL-Logic
 ```SQL
-1	revoke connect sql to [innchris] as [sa];
+revoke connect sql to [innchris] as [sa];
 ```
 
 
@@ -62,9 +63,7 @@ Next; we'll need to determine what kind of GRANTS that Chris did under his accou
 
 ## SQL-Logic
 ```SQL
-1
-2
-3	declare @grants     varchar(50)
+declare @grants     varchar(50)
 set     @grants     = ( select principal_id from sys.server_principals where name = 'mydomain\myusername' )
 select * from sys.server_permissions where grantor_principal_id = @grants
 ```
@@ -78,16 +77,12 @@ First; lets see which endpoint that we are dealing with. So far all we have to g
 
 ## SQL-Logic
 ```SQL
-
-
-1
-2
-3
-4	use master;
+use master;
 grant take ownership on endpoint::hadr_endpoint to sa
     with grant option;
 go
 ```
+
 Notice the 'sa'. Unfortunately; you can't do this. You may feel compelled to use a basic pre-existing account to get through this step, but before you think about using 'sa', consider this… It will error out. That's just the way it's designed.
 
 ![See Grant Statement]( https://mikesdatawork.files.wordpress.com/2015/02/image007.png "See Grant Statement")
