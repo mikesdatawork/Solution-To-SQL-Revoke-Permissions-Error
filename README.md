@@ -47,11 +47,15 @@ order by
  
 Once you can see the explicit permissions that were granted, all you need to do is run the following statement to remove (aka REVOKE) the permissions from the account so you can drop the login.
 Lets drop those CONNECT permissions from the account.
-</p>      
+
+
+
 ## SQL-Logic
 ```SQL
 1	revoke connect sql to [innchris] as [sa];
 ```
+
+
 Next; we'll need to determine what kind of GRANTS that Chris did under his account, then simply remove those granted permissions from those objects. You might want to notate what objects had the GRANT permissions applied to them and simply apply the GRANTS back to them using a more universal account.
 
 
